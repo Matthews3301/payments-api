@@ -1,0 +1,11 @@
+server:
+  port: 8080
+# Note that this object is passed directly to psycopg2.connect() as kwargs
+database:
+  host: localhost
+  port: 5432
+  user: interview_dbuser
+  password: pass
+  dbname: interview
+# Specified from the root of the app
+migrationsDir: migrations
