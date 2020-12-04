@@ -1,6 +1,6 @@
 # Money Transfer (Python)
 
-This is a basic Python HTTP server to track users and their balances.  Your interviewer will explain the question to you; this README just contains usage hints.
+This is a basic Python HTTP server to track users and their balances.
 
 The main libraries used in this server are [Flask](https://flask.palletsprojects.com/en/1.1.x/), an HTTP web framework, and [psycopg2](https://www.psycopg.org/), a PostgreSQL client.
 
@@ -44,7 +44,3 @@ $ bin/attach_db.sh
 
 Migrations are run via [yoyo](https://ollycope.com/software/yoyo/latest/) package.  You can add new migrations in the `migrations` directory with a `number.name.sql` filename, and you can run migrations with the `./migrate.py` command.
 
-
-## Making Changes
-
-Your interviewer will probably ask you to add a new endpoint.  You should start in `app.py`, but be aware that that file is purposely long and should probably be split up before you do much more in it.
