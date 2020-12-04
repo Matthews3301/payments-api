@@ -4,14 +4,6 @@ from transactions import transactions
 from accounts import accounts
 
 # Account transactions endpoint
-'''
-Example POST data:
-{
-    "id_from": 2,
-    "id_to": 1,
-    "amount": 100
-}
-'''
 @app.route('/transactions/<int:id>')
 def getAccountTransactions(id):
   transactions_list = []
@@ -27,6 +19,14 @@ def getAccountTransactions(id):
   return { 'data': transactions_list_dicts }
 
 # Create transaction endpoint
+'''
+Example POST data:
+{
+    "id_from": 2,
+    "id_to": 1,
+    "amount": 100
+}
+'''
 @app.route('/transact', methods = ['POST'])
 def transact():
   id_from = flask.request.get_json().get('id_from')
