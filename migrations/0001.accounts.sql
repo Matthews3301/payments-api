@@ -1,5 +1,6 @@
 -- Create an accounts table
 CREATE TABLE IF NOT EXISTS accounts (
   id        INT PRIMARY KEY NOT NULL,
-  balance   INT NOT NULL DEFAULT 0
+  balance   INT NOT NULL DEFAULT 0,
+  locked    BOOL NOT NULL DEFAULT FALSE
 );

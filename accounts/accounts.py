@@ -4,11 +4,13 @@ class Account:
   # Member properties:
   #   id:      Integer id
   #   balance: Integer balance
+  #   locked: Boolean locked
 
   # Note that these property names match the column names
-  def __init__(self, id, balance):
+  def __init__(self, id, balance, locked):
     self.id = id
     self.balance = balance
+    self.locked = locked
 
 # Gets a single account with the given id from the database, or None if it does not exist.
 def getAccount(db, id):

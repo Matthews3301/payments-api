@@ -47,15 +47,26 @@ def transact():
 
   account_from = getAccountData(id_from)
   account_to = getAccountData(id_to)
-  print(account_from)
 
   # Check if the accounts exist
   if not account_from or not account_to:
     return {'message': 'Account doesn\'t exist'}, 400
 
+  # Check if account is not locked
+  if account_from.locked:
+    return {'message': 'Processing another transaction for this account - please try again'}, 400
+
   # Check if id_from account has enough funds
   if account_from.balance < amount:
     return {'message': 'Not enough balance in the account'}, 400
+
+  def manageAccountLock(lock):
+    with db.cursor() as cur:
+      cur.execute('''UPDATE accounts SET locked = %(lock)s WHERE id = %(id)s;''',
+                  {'id': id_from, 'lock': 'TRUE' if lock else 'FALSE'})
+
+  # Lock "from" account until the transaction is done - to prevent double spend
+  manageAccountLock(True)
 
   new_transaction = None
   try:
@@ -64,6 +75,11 @@ def transact():
     accounts.updateBalance(db, account_to.id, account_to.balance + amount)
   except Exception:
     traceback.print_exc()
+    # Unlock "from" account
+    manageAccountLock(False)
     return { 'message': 'Unknown error' }, 500
+
+  # Unlock "from" account
+  manageAccountLock(False)
 
   return { 'data': new_transaction.__dict__ }
